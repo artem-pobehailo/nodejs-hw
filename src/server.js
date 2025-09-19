@@ -36,6 +36,10 @@ app.get('/notes/:noteId', (req, res) => {
   });
 });
 
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 app.use((err, req, res, next) => {
   console.error('Error:', err.message);
   res.status(500).json({
@@ -51,8 +55,4 @@ app.use((req, res) => {
 
 app.get('/test-error', (req, res) => {
   throw new Error('Simulated server error');
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
 });
