@@ -42,15 +42,15 @@ app.use((req, res) => {
   });
 });
 
-app.get('/test-error', (req, res) => {
-  throw new Error('Simulated server error');
-});
-
 app.use((err, req, res, next) => {
   console.error('Error:', err.message);
   res.status(500).json({
     message: err.message,
   });
+});
+
+app.get('/test-error', (req, res) => {
+  throw new Error('Simulated server error');
 });
 
 app.listen(PORT, () => {
