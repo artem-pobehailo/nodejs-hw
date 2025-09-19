@@ -36,8 +36,8 @@ app.get('/notes/:noteId', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.get('/test-error', (req, res) => {
+  throw new Error('Simulated server error');
 });
 
 app.use((err, req, res, next) => {
@@ -53,6 +53,6 @@ app.use((req, res) => {
   });
 });
 
-app.get('/test-error', (req, res) => {
-  throw new Error('Simulated server error');
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
