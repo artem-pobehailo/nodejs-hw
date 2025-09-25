@@ -1,6 +1,7 @@
 // src/server.js
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 
 import 'dotenv/config';
 import { connectMongoDB } from './db/connectMongoDB.js';
@@ -13,10 +14,14 @@ import notesRoutes from './routes/notesRoutes.js';
 export const app = express();
 const PORT = process.env.PORT ?? 3030;
 
-app.use(logger);
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
+app.use(logger);
 
+// app.get('/test', (req, res) => {
+//   res.json({ message: 'Helmet check' });
+// });
 // app.get('/test-error', (req, res) => {
 //   throw new Error('Simulated server error');
 // });
