@@ -7,11 +7,13 @@ const notesSchema = new Schema(
   {
     title: {
       type: String,
+      trim: true,
       required: true,
     },
     content: {
       type: String,
       required: false,
+      trim: true,
       default: '',
     },
     tag: {
