@@ -10,10 +10,17 @@ export const getAllNotes = async (req, res) => {
   if (tag) {
     notesQuery.where('tag').in([tag]);
   }
+
   if (search) {
-    const regex = new RegExp(search, 'i');
-    notesQuery.or([{ title: regex }, { content: regex }]);
+    notesQuery.where({
+      $text: { $search: search },
+    });
   }
+
+  // if (search) {
+  //   const regex = new RegExp(search, 'i');
+  //   notesQuery.or([{ title: regex }, { content: regex }]);
+  // }
 
   const [totalNotes, notes] = await Promise.all([
     notesQuery.clone().countDocuments(),

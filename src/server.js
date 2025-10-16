@@ -1,9 +1,13 @@
 // src/server.js
+
+import 'dotenv/config';
+
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 
-import 'dotenv/config';
+import userRoutes from './routes/userRoutes.js';
+
 import { connectMongoDB } from './db/connectMongoDB.js';
 
 import { errors } from 'celebrate';
@@ -35,6 +39,8 @@ app.use(helmet());
 
 app.use(authRoutes);
 app.use(notesRoutes);
+
+app.use(userRoutes);
 
 app.use(notFoundHandler);
 
