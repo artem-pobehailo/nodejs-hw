@@ -22,7 +22,7 @@ import authRoutes from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser';
 
 export const app = express();
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.PORT ?? 3030;
 
 app.use(logger);
 app.use(express.json());

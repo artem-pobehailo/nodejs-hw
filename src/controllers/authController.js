@@ -1,7 +1,7 @@
 // src/controllers/authController.js
 
 import jwt from 'jsonwebtoken';
-import { sendMail } from '../utils/sendMail.js';
+import { sendEmail } from '../utils/sendMail.js';
 import bcrypt from 'bcrypt';
 
 import handlebars from 'handlebars';
@@ -126,9 +126,7 @@ export const requestResetEmail = async (req, res, next) => {
   // Якщо користувача нема — навмисно повертаємо ту саму "успішну"
   // відповідь без відправлення листа (anti user enumeration).
   if (!user) {
-    return res.status(200).json({
-      message: 'If this email exists, a reset link has been sent',
-    });
+    throw createHttpError(404, 'User not found');
   }
 
   // Користувач є — генеруємо короткоживучий JWT і відправляємо лист
@@ -151,7 +149,7 @@ export const requestResetEmail = async (req, res, next) => {
   });
 
   try {
-    await sendMail({
+    await sendEmail({
       from: process.env.SMTP_FROM,
       to: email,
       subject: 'Reset your password',
